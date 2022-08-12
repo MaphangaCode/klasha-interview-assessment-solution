@@ -23,8 +23,8 @@ public class TranslatorServiceImpl implements TranslatorService {
 
         final List<Edge> edges = locationConnectList.stream()
                 .map(locationConnect -> {
-                    final Location sourceLocation = locationConnect.getLocationA();
-                    final Location destinationLocation = locationConnect.getLocationB();
+                    final Location sourceLocation = locationConnect.getSourceLocation();
+                    final Location destinationLocation = locationConnect.getDestLocation();
 
                     final Node sourceNode  = new Node(sourceLocation.getId(), sourceLocation.getName());
 

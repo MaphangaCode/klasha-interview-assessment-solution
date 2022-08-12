@@ -44,8 +44,8 @@ public class ShortPathFinderServiceImpl implements ShortPathFinderService {
         final List<Long> locationIdList = new ArrayList<>();
 
         for (LocationConnect locationConnect: locationConnectList) {
-            locationIdList.add(locationConnect.getLocationA().getId());
-            locationIdList.add(locationConnect.getLocationB().getId());
+            locationIdList.add(locationConnect.getSourceLocation().getId());
+            locationIdList.add(locationConnect.getDestLocation().getId());
         }
 
         if (!(locationIdList.contains(sourceLocationId) && locationIdList.contains(destinationLocationId))) {

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface LocationConnectRepository extends JpaRepository<LocationConnect, Long> {
 
-    List<LocationConnect> findAllByLocationAIdOrLocationBIdAndDeletedAtIsNull(Long aId, Long bIg);
+    List<LocationConnect> findAllBySourceLocationIdOrDestLocationIdAndDeletedAtIsNull(Long aId, Long bIg);
 
-    Page<LocationConnect> findAllByLocationADeletedAtIsNullOrLocationBDeletedAtIsNullAndDeletedAtIsNull(Pageable pageable);
+    Page<LocationConnect> findAllBySourceLocationDeletedAtIsNullOrDestLocationDeletedAtIsNullAndDeletedAtIsNull(Pageable pageable);
 }

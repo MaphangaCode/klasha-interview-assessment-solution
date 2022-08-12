@@ -3,32 +3,33 @@ package com.solutions.assessment.interview.klasha.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Table(name = "USERS")
 @Entity
-@Table(name = "LOCATION_CONNECT")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LocationConnect {
+public class LocationUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LOCATION_CONNECT_ID")
+    @Column(name = "USER_ID", nullable = false)
     private Long id;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SOURCE_LOCATION_ID", nullable = false)
-    private Location sourceLocation;
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
 
-    @ToString.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DEST_LOCATION_ID", nullable = false)
-    private Location destLocation;
+    @Column(name = "SURNAME", nullable = false)
+    private String surname;
+
+    @Column(name = "EMAIL", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
     @Column(name = "CREATED_AT", nullable = false)
     private LocalDateTime createdAt;

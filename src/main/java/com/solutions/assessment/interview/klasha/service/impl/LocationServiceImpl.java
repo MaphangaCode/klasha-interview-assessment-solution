@@ -50,17 +50,17 @@ public class LocationServiceImpl implements LocationService {
         }
 
         final List<LocationConnect> locationConnectList = locationConnectRepository
-                .findAllByLocationAIdOrLocationBIdAndDeletedAtIsNull(id, id);
+                .findAllBySourceLocationIdOrDestLocationIdAndDeletedAtIsNull(id, id);
 
         final List<Location> connectedWithLocationList = new ArrayList<>();
 
         for (final LocationConnect lConnect : locationConnectList) {
-            if (!location.getId().equals(lConnect.getLocationA().getId())) {
-                connectedWithLocationList.add(lConnect.getLocationA());
+            if (!location.getId().equals(lConnect.getSourceLocation().getId())) {
+                connectedWithLocationList.add(lConnect.getSourceLocation());
             }
 
-            if (!location.getId().equals(lConnect.getLocationB().getId())) {
-                connectedWithLocationList.add(lConnect.getLocationB());
+            if (!location.getId().equals(lConnect.getDestLocation().getId())) {
+                connectedWithLocationList.add(lConnect.getDestLocation());
             }
         }
 
@@ -113,7 +113,7 @@ public class LocationServiceImpl implements LocationService {
         final Pageable page = PageRequest.of(pageNumber, pageSize);
 
         final Page<LocationConnect> locationConnectListPage = locationConnectRepository
-                .findAllByLocationADeletedAtIsNullOrLocationBDeletedAtIsNullAndDeletedAtIsNull(page);
+                .findAllBySourceLocationDeletedAtIsNullOrDestLocationDeletedAtIsNullAndDeletedAtIsNull(page);
 
         if (!locationConnectListPage.toList().isEmpty()) {
 
@@ -159,7 +159,7 @@ public class LocationServiceImpl implements LocationService {
         location = locationRepository.save(location);
 
         final List<LocationConnect> locationConnectList = locationConnectRepository
-                .findAllByLocationAIdOrLocationBIdAndDeletedAtIsNull(location.getId(),
+                .findAllBySourceLocationIdOrDestLocationIdAndDeletedAtIsNull(location.getId(),
                         location.getId());
 
         return new LocationDtoBuilder()
@@ -169,10 +169,10 @@ public class LocationServiceImpl implements LocationService {
                 .setLatitude(location.getLatitude())
                 .setConnectedWithLocationList(locationConnectList.stream()
                         .map(locationConnect -> new LocationDtoBuilder()
-                                .setId(locationConnect.getLocationB().getId())
-                                .setName(locationConnect.getLocationB().getName())
-                                .setLatitude(locationConnect.getLocationB().getLatitude())
-                                .setLongitude(locationConnect.getLocationB().getLongitude())
+                                .setId(locationConnect.getDestLocation().getId())
+                                .setName(locationConnect.getDestLocation().getName())
+                                .setLatitude(locationConnect.getDestLocation().getLatitude())
+                                .setLongitude(locationConnect.getDestLocation().getLongitude())
                                 .build())
                         .collect(Collectors.toList()))
                 .build();
@@ -182,7 +182,7 @@ public class LocationServiceImpl implements LocationService {
     public List<LocationConnect> getShortPathSourceAndDestLocationConnect(final Long sourceLocationId,
                                                                           final Long destLocationId) {
        return locationConnectRepository
-               .findAllByLocationAIdOrLocationBIdAndDeletedAtIsNull(sourceLocationId, destLocationId);
+               .findAllBySourceLocationIdOrDestLocationIdAndDeletedAtIsNull(sourceLocationId, destLocationId);
     }
 
     @Transactional
@@ -254,7 +254,7 @@ public class LocationServiceImpl implements LocationService {
         locationRepository.save(location);
 
         final List<LocationConnect> locationConnectList = locationConnectRepository
-                .findAllByLocationAIdOrLocationBIdAndDeletedAtIsNull(locationId, locationId);
+                .findAllBySourceLocationIdOrDestLocationIdAndDeletedAtIsNull(locationId, locationId);
 
         for (LocationConnect locationConnect : locationConnectList) {
             locationConnect.setDeletedAt(LocalDateTime.now());
@@ -282,27 +282,27 @@ public class LocationServiceImpl implements LocationService {
         final Map<Location, List<Location>> locationListMap = new HashMap<>();
 
         for (LocationConnect lConnect: locationConnectList) {
-            if (!locationListMap.containsKey(lConnect.getLocationA())) {
+            if (!locationListMap.containsKey(lConnect.getSourceLocation())) {
                 final List<Location> connectedWithList = new ArrayList<>();
-                connectedWithList.add(lConnect.getLocationB());
-                locationListMap.put(lConnect.getLocationA(), connectedWithList);
+                connectedWithList.add(lConnect.getDestLocation());
+                locationListMap.put(lConnect.getSourceLocation(), connectedWithList);
             }
 
-            if (!locationListMap.containsKey(lConnect.getLocationB())) {
+            if (!locationListMap.containsKey(lConnect.getDestLocation())) {
                 final List<Location> connectedWithList = new ArrayList<>();
-                connectedWithList.add(lConnect.getLocationA());
-                locationListMap.put(lConnect.getLocationB(), connectedWithList);
+                connectedWithList.add(lConnect.getSourceLocation());
+                locationListMap.put(lConnect.getDestLocation(), connectedWithList);
             }
 
-            if (locationListMap.containsKey(lConnect.getLocationA())) {
-                if (!locationListMap.get(lConnect.getLocationA()).contains(lConnect.getLocationB())) {
-                    locationListMap.get(lConnect.getLocationA()).add(lConnect.getLocationB());
+            if (locationListMap.containsKey(lConnect.getSourceLocation())) {
+                if (!locationListMap.get(lConnect.getSourceLocation()).contains(lConnect.getDestLocation())) {
+                    locationListMap.get(lConnect.getSourceLocation()).add(lConnect.getDestLocation());
                 }
             }
 
-            if (locationListMap.containsKey(lConnect.getLocationB())) {
-                if (!locationListMap.get(lConnect.getLocationB()).contains(lConnect.getLocationA())) {
-                    locationListMap.get(lConnect.getLocationB()).add(lConnect.getLocationA());
+            if (locationListMap.containsKey(lConnect.getDestLocation())) {
+                if (!locationListMap.get(lConnect.getDestLocation()).contains(lConnect.getSourceLocation())) {
+                    locationListMap.get(lConnect.getDestLocation()).add(lConnect.getSourceLocation());
                 }
             }
         }

@@ -14,12 +14,12 @@ public class LocationConnectBuilder {
     }
 
     public LocationConnectBuilder setLocationA(final Location locationA) {
-        this.locationConnect.setLocationA(locationA);
+        this.locationConnect.setSourceLocation(locationA);
         return this;
     }
 
     public LocationConnectBuilder setLocationB(final Location locationB) {
-        this.locationConnect.setLocationB(locationB);
+        this.locationConnect.setDestLocation(locationB);
         return this;
     }
 

@@ -11,7 +11,7 @@
 
   <groupId>org.example</groupId>
   <artifactId>klasha-interview-assessment-solution</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>klasha-interview-assessment-solution Maven Webapp</name>
 
@@ -53,6 +53,20 @@
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-spatial</artifactId>
       <version>8.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
   </dependencies>
 
