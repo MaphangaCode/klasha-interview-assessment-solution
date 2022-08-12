@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AddLocationResponseDto extends AddLocationDto {
+public class AddLocationResponseDto {
     private Long id;
 }

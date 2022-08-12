@@ -1,21 +1,26 @@
 package com.solutions.assessment.interview.klasha.controller;
 
+import com.solutions.assessment.interview.klasha.domain.dto.GenericPagedResponseDto;
 import com.solutions.assessment.interview.klasha.domain.dto.location.*;
+import com.solutions.assessment.interview.klasha.service.LocationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/location/")
 public class LocationController {
 
-    @PostMapping("add/location")
+    private final LocationService locationService;
+
+    public LocationController(final LocationService locationService) {
+        this.locationService = locationService;
+    }
+
+    @PostMapping("add")
     public ResponseEntity<AddLocationResponseDto> addLocation(@RequestBody final AddLocationDto addLocationDto) {
 
-        final AddLocationResponseDto addLocationResponseDto = new AddLocationResponseDto();
+        final AddLocationResponseDto addLocationResponseDto = locationService.addLocation(addLocationDto);
 
         return new ResponseEntity<>(addLocationResponseDto, HttpStatus.CREATED);
     }
@@ -23,22 +28,23 @@ public class LocationController {
     @GetMapping("get/{id}")
     public ResponseEntity<LocationDto> getLocation(@PathVariable final Long id) {
 
-        final LocationDto locationDto = new LocationDto();
+        final LocationDto locationDto = locationService.getLocation(id);
 
         return new ResponseEntity<>(locationDto, HttpStatus.OK);
     }
 
     @GetMapping("get")
-    public ResponseEntity<List<LocationDto>> getLocations(@RequestParam final Integer pageNumber,
-                                                          @RequestParam final Integer pageSize) {
-        final List<LocationDto> locationDtoList = new ArrayList<>();
+    public ResponseEntity<GenericPagedResponseDto<LocationDto>> getLocations(@RequestParam(required = false) final Integer pageNumber,
+                                                                             @RequestParam(required = false) final Integer pageSize) {
+        final GenericPagedResponseDto<LocationDto> genericPagedResponseDto = locationService
+                .retrieveLocations(pageNumber, pageSize);
 
-        return new ResponseEntity<>(locationDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(genericPagedResponseDto, HttpStatus.OK);
     }
 
     @PutMapping("update")
-    public ResponseEntity<LocationDto> updateLocation(@RequestParam final UpdateLocationDto updateLocationDto) {
-        final LocationDto locationDto = new LocationDto();
+    public ResponseEntity<LocationDto> updateLocation(@RequestBody final UpdateLocationDto updateLocationDto) {
+        final LocationDto locationDto = locationService.updateLocation(updateLocationDto);
 
         return new ResponseEntity<>(locationDto, HttpStatus.OK);
     }

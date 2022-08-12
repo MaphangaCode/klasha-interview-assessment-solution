@@ -15,6 +15,6 @@ public class UpdateLocationDto {
     private Double updatedLongitude;
     private Double updatedLatitude;
     private String updatedName;
-    private List<Long> addedConnectedLocations;
-    private List<Long> removedConnectedLocations;
+    private List<Long> addedConnectedLocationList;
+    private List<Long> removedConnectedLocationList;
 }

@@ -20,16 +20,16 @@ public class LocationConnect {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "LOC_A", nullable = false)
+    @JoinColumn(name = "LOCATION_A_ID", nullable = false)
     private Location locationA;
 
     @ManyToOne
-    @JoinColumn(name = "LOC_B", nullable = false)
+    @JoinColumn(name = "LOCATION_B_ID", nullable = false)
     private Location locationB;
 
     @Column(name = "CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "DELETED_AT", nullable = false)
+    @Column(name = "DELETED_AT")
     private LocalDateTime deletedAt;
 }

@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Node {
+    private Long id;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OptimalRouteDto {
+public class ShortestPathDto {
     private BigDecimal totalCost;
-    private List<String> optimalRoute;
+    private List<String> shortestPath;
 }

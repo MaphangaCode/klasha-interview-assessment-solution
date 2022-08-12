@@ -14,5 +14,5 @@ public class LocationDto {
    private Double longitude;
    private Double latitude;
    private String name;
-   private List<LocationDto> connectedLocations;
+   private List<LocationDto> connectedWithLocationList;
 }

@@ -2,11 +2,12 @@ package com.solutions.assessment.interview.klasha.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class Edge {
-  private Long id;
+public class Graph {
+    private final List<Node> nodes;
+    private final List<Edge> edges;
 }
