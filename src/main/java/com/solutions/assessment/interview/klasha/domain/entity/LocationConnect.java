@@ -3,6 +3,7 @@ package com.solutions.assessment.interview.klasha.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,11 +20,13 @@ public class LocationConnect {
     @Column(name = "LOCATION_CONNECT_ID")
     private Long id;
 
-    @ManyToOne
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "LOCATION_A_ID", nullable = false)
     private Location locationA;
 
-    @ManyToOne
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "LOCATION_B_ID", nullable = false)
     private Location locationB;
 
