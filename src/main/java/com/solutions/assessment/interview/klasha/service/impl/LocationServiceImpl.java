@@ -11,13 +11,10 @@ import com.solutions.assessment.interview.klasha.domain.dto.location.LocationDto
 import com.solutions.assessment.interview.klasha.domain.dto.location.UpdateLocationDto;
 import com.solutions.assessment.interview.klasha.domain.entity.Location;
 import com.solutions.assessment.interview.klasha.domain.entity.LocationConnect;
-import com.solutions.assessment.interview.klasha.domain.entity.LocationWarehouse;
 import com.solutions.assessment.interview.klasha.domain.exception.ResourceCreationException;
-import com.solutions.assessment.interview.klasha.domain.exception.ResourceInvalidStateException;
 import com.solutions.assessment.interview.klasha.domain.exception.ResourceNotFoundException;
 import com.solutions.assessment.interview.klasha.repository.LocationConnectRepository;
 import com.solutions.assessment.interview.klasha.repository.LocationRepository;
-import com.solutions.assessment.interview.klasha.repository.LocationWarehouseRepository;
 import com.solutions.assessment.interview.klasha.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,15 +34,11 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationConnectRepository locationConnectRepository;
 
-    private final LocationWarehouseRepository locationWarehouseRepository;
-
     @Autowired
     public LocationServiceImpl(final LocationRepository locationRepository,
-                               final LocationConnectRepository locationConnectRepository,
-                               final LocationWarehouseRepository locationWarehouseRepository) {
+                               final LocationConnectRepository locationConnectRepository) {
         this.locationRepository = locationRepository;
         this.locationConnectRepository = locationConnectRepository;
-        this.locationWarehouseRepository = locationWarehouseRepository;
     }
 
     @Override

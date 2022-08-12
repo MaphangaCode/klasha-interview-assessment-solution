@@ -1,11 +1,9 @@
 package com.solutions.assessment.interview.klasha.controller;
 
 import com.solutions.assessment.interview.klasha.domain.dto.GenericPagedResponseDto;
-import com.solutions.assessment.interview.klasha.domain.dto.LocationWarehouseDto;
 import com.solutions.assessment.interview.klasha.domain.dto.ShortestPathDto;
 import com.solutions.assessment.interview.klasha.domain.dto.location.*;
 import com.solutions.assessment.interview.klasha.service.LocationService;
-import com.solutions.assessment.interview.klasha.service.LocationWarehouseService;
 import com.solutions.assessment.interview.klasha.service.ShortPathFinderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +18,10 @@ public class LocationController {
     private final LocationService locationService;
     private final ShortPathFinderService shortPathFinderService;
 
-    private final LocationWarehouseService locationWarehouseService;
-
     public LocationController(final LocationService locationService,
-                              final ShortPathFinderService shortPathFinderService,
-                              final LocationWarehouseService locationWarehouseService) {
+                              final ShortPathFinderService shortPathFinderService) {
         this.locationService = locationService;
         this.shortPathFinderService = shortPathFinderService;
-        this.locationWarehouseService = locationWarehouseService;
     }
 
     @PostMapping("add")
@@ -82,14 +76,4 @@ public class LocationController {
     public void removeLocation(@PathVariable final Long locationId) {
         locationService.removeLocation(locationId);
     }
-
-
-    @PostMapping("add-packages/{locationId}/{packageCount}")
-    public ResponseEntity<LocationWarehouseDto> registerPackages(@PathVariable final Long locationId,
-                                                                 @PathVariable final Integer packageCount) {
-        final LocationWarehouseDto locationWarehouseDto = locationWarehouseService.addPackages(locationId, packageCount);
-
-        return new ResponseEntity<>(locationWarehouseDto, HttpStatus.OK);
-    }
-
 }
