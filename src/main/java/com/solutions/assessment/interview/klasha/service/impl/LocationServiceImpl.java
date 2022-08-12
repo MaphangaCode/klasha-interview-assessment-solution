@@ -263,6 +263,11 @@ public class LocationServiceImpl implements LocationService {
         locationConnectRepository.saveAll(locationConnectList);
     }
 
+    @Override
+    public Integer getLocationTotalCount() {
+        return locationRepository.findByDeletedAtIsNull().size();
+    }
+
     private Map<Location, List<Location>> retrieveMapByLocation(final List<Location> locationList) {
         final Map<Location, List<Location>> locationListMap = new HashMap<>();
 

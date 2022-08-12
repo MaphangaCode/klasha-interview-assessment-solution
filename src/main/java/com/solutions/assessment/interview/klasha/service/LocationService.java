@@ -26,4 +26,6 @@ public interface LocationService {
                                 List<Long> destinationIdList);
 
     void removeLocation(Long locationId);
+
+    Integer getLocationTotalCount();
 }

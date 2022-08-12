@@ -3,6 +3,7 @@ package com.solutions.assessment.interview.klasha.service.impl;
 import com.solutions.assessment.interview.klasha.domain.dto.GraphDto;
 import com.solutions.assessment.interview.klasha.domain.dto.ShortestPathDto;
 import com.solutions.assessment.interview.klasha.domain.entity.LocationConnect;
+import com.solutions.assessment.interview.klasha.domain.exception.ResourceInvalidStateException;
 import com.solutions.assessment.interview.klasha.domain.exception.ResourceNotFoundException;
 import com.solutions.assessment.interview.klasha.service.LocationService;
 import com.solutions.assessment.interview.klasha.service.ShortPathFinderService;
@@ -30,6 +31,12 @@ public class ShortPathFinderServiceImpl implements ShortPathFinderService {
     @Override
     public ShortestPathDto getShortestPath(final Long sourceLocationId,
                                            final Long destinationLocationId) {
+
+        final Integer totalLocationCount = locationService.getLocationTotalCount();
+
+        if (totalLocationCount < 3) {
+            throw new ResourceInvalidStateException("Minimum of 3 locations required before deliveries can begin");
+        }
 
         final List<LocationConnect> locationConnectList = locationService
                 .getShortPathSourceAndDestLocationConnect(sourceLocationId, destinationLocationId);

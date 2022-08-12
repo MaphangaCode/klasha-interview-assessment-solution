@@ -17,6 +17,8 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
 
     Page<Location> findByDeletedAtIsNull(Pageable pageable);
 
+    List<Location> findByDeletedAtIsNull();
+
     Location findByLongitudeAndLatitudeAndDeletedAtIsNull(Double longitude, Double latitude);
 
 }
