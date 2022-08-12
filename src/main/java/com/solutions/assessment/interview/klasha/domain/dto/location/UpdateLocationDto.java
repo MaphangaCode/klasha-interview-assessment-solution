@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,6 +13,4 @@ public class UpdateLocationDto {
     private Double updatedLongitude;
     private Double updatedLatitude;
     private String updatedName;
-    private List<Long> addedConnectedLocationList;
-    private List<Long> removedConnectedLocationList;
 }

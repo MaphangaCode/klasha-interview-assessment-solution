@@ -7,7 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Data
-public class Graph {
+public class GraphDto {
     private final List<Node> nodes;
     private final List<Edge> edges;
 }

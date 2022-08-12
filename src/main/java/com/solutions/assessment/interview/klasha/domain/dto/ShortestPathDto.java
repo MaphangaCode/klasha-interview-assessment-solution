@@ -1,16 +1,15 @@
-package com.solutions.assessment.interview.klasha.domain.dto.location;
+package com.solutions.assessment.interview.klasha.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ShortestPathDto {
-    private BigDecimal totalCost;
+    private Double totalCost;
     private List<String> shortestPath;
 }
